@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MachinaRecognition
@@ -35,6 +36,19 @@ namespace MachinaRecognition
 
         private async Task StartButtonClickedAsync()
         {
+
+            // Testons la connectivité
+            var networkAccess = Connectivity.NetworkAccess;
+
+            if (networkAccess != NetworkAccess.Internet)
+            {
+                await DisplayAlert("erreur", "Vous devez être connecté à internet", "OK");
+                return;
+            }
+
+
+
+            //prise de photo
             await CrossMedia.Current.Initialize();
 
             if ( !CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported )
@@ -52,7 +66,7 @@ namespace MachinaRecognition
 
             if (file == null)
             {
-                
+                //retourner à la page d'accueil
                 return;
             }
 

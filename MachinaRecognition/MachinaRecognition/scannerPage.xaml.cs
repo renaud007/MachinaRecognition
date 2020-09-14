@@ -20,7 +20,7 @@ namespace MachinaRecognition
     {
         FaceDetectResult faceDetectResult = null;
         bool processing = true;
-        SpeechOptions speechOptions = null; 
+        SpeechOptions speechOptions = null;
         public scannerPage(MediaFile file)
         {
             InitializeComponent();
@@ -31,14 +31,14 @@ namespace MachinaRecognition
             });
 
             var data = file.GetStreamWithImageRotatedForExternalStorage();
-            
-           _= starDetection(data);
 
-            _=LaserAnimationWithSoundAndDisplayResults();
+            _ = starDetection(data);
+
+            _ = LaserAnimationWithSoundAndDisplayResults();
 
             statusLabel.Text = "Analyse en cours...";
 
-          _=  InitSpeak();
+            _ = InitSpeak();
         }
 
 
@@ -62,16 +62,18 @@ namespace MachinaRecognition
             }
 
             laserImage.IsVisible = false;
-           PlaySound("result.wav");
+            PlaySound("result.wav");
             if (faceDetectResult == null)
             {
                 // Cas d'erreur
-          //      await OnAnalysisError();
+                await DisplayAlert("ERREUR", "l'analyse n'a pas fonctionnée ou absence de visage ", "ok");
+                await Navigation.PopAsync(); 
             }
             else
             {
-                 DisplayResults();
-                await ResultsSpeech();
+                 ResultsSpeech();
+                DisplayResults();
+               
             }
         }
 
@@ -82,19 +84,22 @@ namespace MachinaRecognition
             player.Play();
         }
 
-        private async Task starDetection( Stream data)
+        private async Task starDetection(Stream data)
         {
 
             faceDetectResult = await CognitiveService.FaceDetect(data);
             processing = false;
-           
+
 
 
         }
 
-        private void DisplayResults()
+        private async void DisplayResults()
         {
-            if (faceDetectResult == null) return;
+            if (faceDetectResult == null)
+            {
+                return;
+            }
 
             statusLabel.Text = "Analyse terminée";
 
@@ -103,6 +108,7 @@ namespace MachinaRecognition
             genderLabel.Text = faceDetectResult.faceAttributes.gender.Substring(0, 1).ToUpper();
             infoLayout.IsVisible = true;
             continueButton.Opacity = 1;
+
         }
         private void PlayCurrentSound()
         {
@@ -130,7 +136,7 @@ namespace MachinaRecognition
             }
             await TextToSpeech.SpeakAsync(text, speechOptions);
         }
-       
+
         private async Task InitSpeak()
         {
             var locales = await TextToSpeech.GetLocalesAsync();
@@ -148,18 +154,22 @@ namespace MachinaRecognition
 
         private async Task ResultsSpeech()
         {
-            if (faceDetectResult == null) return;
+            if (faceDetectResult == null)
+            {
+                await Speak("Humain non détecté ");
+                return;
+            }
 
-             
+
             if (faceDetectResult.faceAttributes.gender.ToLower() == "male")
             {
-                await Speak("Humain détecté, Sexe masculin,"+ " âge " + faceDetectResult.faceAttributes.age.ToString() + " ans");
+                await Speak("Humain détecté, Sexe masculin," + " âge " + faceDetectResult.faceAttributes.age.ToString() + " ans");
             }
             else
             {
-                await Speak("Humain détecté, Sexe féminin,"+ " âge " + faceDetectResult.faceAttributes.age.ToString() + " ans");
+                await Speak("Humain détecté, Sexe féminin," + " âge " + faceDetectResult.faceAttributes.age.ToString() + " ans");
             }
-             
+
         }
 
         private void ContinueButtonClicked(object sender, EventArgs e)

@@ -11,11 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="result.wav" />
-    <None Remove="scan.wav" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="result.wav" />
     <EmbeddedResource Include="scan.wav" />
   </ItemGroup>
@@ -33,5 +28,9 @@
     <EmbeddedResource Update="scannerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="embedded_Ressources\" />
   </ItemGroup>
 </Project>
