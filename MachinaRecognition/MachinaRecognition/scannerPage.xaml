@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MachinaRecognition.scannerPage"
+               BackgroundImageSource="background.png" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" Margin="20,0">
+
+            <Grid HeightRequest="400">
+                <Image
+                    Source="cadre.png"
+                    Aspect="Fill"/>
+
+                <Image x:Name="faceImage"
+                   Aspect="AspectFill"
+                   Margin="20"
+                   BackgroundColor="Gray"  />
+
+                <Image
+                     x:Name="laserImage"
+                    Source="laser.png"
+                     Margin="0,-10,0,0"
+                    VerticalOptions="Start"/>
+
+                <StackLayout Orientation="Horizontal" 
+                             x:Name="infoLayout"
+                             IsVisible="false"
+                             HeightRequest="88"
+                             VerticalOptions="End"
+                             Padding="10,0"
+                             Spacing="10"
+                             Margin="20,0,20,20"
+                             BackgroundColor="#90000000" >
+                    
+                   
+                    <Label Text="X" FontSize="50"
+                           x:Name="genderLabel"
+                           HorizontalOptions="FillAndExpand"
+                          FontFamily="pixelFont"
+                           VerticalOptions="End"
+                           TextColor="White"/>
+                    
+                      
+                    <Label Text="AGE" FontSize="25"
+                           VerticalOptions="End"
+                           Margin="0,0,0,10"
+                         FontFamily="pixelFont"
+                           TextColor="White"/>
+
+                   
+                    <Label Text="XX" FontSize="50"
+                           x:Name="ageLabel"
+                           VerticalOptions="End"
+                          FontFamily="pixelFont"
+                           TextColor="White"/>
+
+                </StackLayout>
+            </Grid>
+
+
+
+
+
+            <Label x:Name="statusLabel" Text="Analyse en cours..." 
+                   TextColor="White" HorizontalOptions="Center" 
+                   Margin="0,20,0,0" />
+
+            <Button Text="Cliquez ici pour continuer" 
+                    x:Name="continueButton"
+                    Opacity="0"
+                HorizontalOptions="Center" 
+                BackgroundColor="Transparent" 
+                Clicked="ContinueButtonClicked"
+                TextColor="White"/>
+
+        </StackLayout>
+        <!--<StackLayout VerticalOptions="Center">
+            <Image x:Name="faceImage" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="200" WidthRequest="350"/>
+
+            <Button Text="Cliquer ici pour continuer" HorizontalOptions="Center" Clicked="Button_Clicked" TextColor="White"
+                    VerticalOptions="Center" BackgroundColor="Transparent" />
+
+            <Label x:Name="faceLabel" Text="xxx" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,20,0,0" />
+        </StackLayout>-->
+    </ContentPage.Content>
+</ContentPage>
