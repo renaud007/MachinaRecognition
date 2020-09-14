@@ -2,20 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              x:Class="MachinaRecognition.MainPage"
-             BackgroundImageSource="background.png"
+             BackgroundImageSource="iabackkk.jpg"
              >
 
     <StackLayout    >
-        <forms:AnimationView 
+      
+            <forms:AnimationView 
 	x:Name="animationView" 
 	Grid.Row="1"
 	Animation="face-scan.json" 
 	Loop="True" 
 	AutoPlay="True"
-	 
+	
 	ClickedCommand="{Binding ClickedCommand}"
 	VerticalOptions="FillAndExpand" 
 	HorizontalOptions="FillAndExpand" />
+   
 
         <StackLayout VerticalOptions="Center">
             <Button Text="Click to take a photo for an identification"
